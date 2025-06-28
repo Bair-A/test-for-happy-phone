@@ -1,2 +1,2 @@
-# test-for-Happy-Phone
+# test-for-happy-phone
 test task for Happy Phone company
