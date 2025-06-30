@@ -2,29 +2,38 @@ import { TodoItemType } from '@/shared/types';
 
 export const TODOS_KEY = 'TODOS';
 
+const baseDate = new Date();
+
 export const mockTodoItems: TodoItemType[] = [
   {
     id: 1,
     text: 'Купить продукты',
-    position: 1,
-    category: 'Покупки',
+    category: ['Покупки', 1],
+    createdAt: new Date(baseDate.getTime()),
   },
   {
     id: 2,
     text: 'Прочитать книгу',
-    position: 2,
-    category: 'Чтение',
+    category: ['Чтение', 1],
+    createdAt: new Date(baseDate.getTime() + 60000),
   },
   {
     id: 3,
     text: 'Позвонить другу',
-    position: 3,
-    category: 'Общение',
+    category: ['Общение', 1],
+    createdAt: new Date(baseDate.getTime() + 2 * 60000),
   },
   {
     id: 4,
     text: 'Сделать зарядку',
-    position: 4,
-    category: 'Здоровье',
+    category: ['Здоровье', 1],
+    createdAt: new Date(baseDate.getTime() + 3 * 60000),
   },
+];
+
+export const mockCategories = [
+  { value: 'Покупки', label: 'Покупки' },
+  { value: 'Чтение', label: 'Чтение' },
+  { value: 'Общение', label: 'Общение' },
+  { value: 'Здоровье', label: 'Здоровье' },
 ];
