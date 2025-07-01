@@ -2,6 +2,8 @@ import { TodoItemType } from '@/shared/types';
 
 export const TODOS_KEY = 'TODOS';
 
+export const DEFAULT_CATEGORY = 'Без категории';
+
 const baseDate = new Date();
 
 export const mockTodoItems: TodoItemType[] = [

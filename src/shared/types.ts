@@ -11,6 +11,11 @@ export type CategoryLastPosition = {
   [category: string]: number;
 };
 
+export type CategoryType = {
+  name: string;
+  id: number;
+};
+
 export type LocalStorageValue<T> = Array<T>;
 
 export enum ButtonColor {

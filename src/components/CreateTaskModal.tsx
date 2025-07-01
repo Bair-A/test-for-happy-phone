@@ -3,6 +3,7 @@
 import Overlay from '@/components/Overlay';
 import { useState } from 'react';
 import { CategoryLastPosition, TodoItemType } from '@/shared/types';
+import { DEFAULT_CATEGORY } from '@/constants/constants';
 
 type CreateTaskModalProps = {
   closeModal: () => void;
@@ -18,7 +19,7 @@ const CreateTaskModal = ({
   categories,
 }: CreateTaskModalProps) => {
   const [taskText, setTaskText] = useState('');
-  const [category, setCategory] = useState('empty');
+  const [category, setCategory] = useState(DEFAULT_CATEGORY);
 
   const createTask = () => {
     onCreate({
@@ -26,15 +27,8 @@ const CreateTaskModal = ({
       category: [category, categoryLastPositions[category] || 1],
     });
     setTaskText('');
-    setCategory('empty');
+    setCategory(DEFAULT_CATEGORY);
     closeModal();
-    console.log(
-      {
-        text: taskText,
-        category: [category, categoryLastPositions[category] || 1],
-      },
-      'создана задача'
-    );
   };
 
   return (
@@ -114,7 +108,7 @@ const CreateTaskModal = ({
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="empty">Без категори</option>
+                <option value={DEFAULT_CATEGORY}>{DEFAULT_CATEGORY}</option>
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
