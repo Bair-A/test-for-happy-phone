@@ -46,7 +46,7 @@ const Header = () => {
         <nav>
           <ul className="flex gap-6">
             {NAVIGATION_LINKS.map((link) => (
-              <NavLink text={link.text} href={link.href} />
+              <NavLink key={link.text} text={link.text} href={link.href} />
             ))}
           </ul>
         </nav>

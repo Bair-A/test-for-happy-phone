@@ -1,8 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import TodoItem from '@/components/TodoItem';
-import { CategoryLastPosition, TodoItemType } from '@/shared/types';
+import {
+  CategoryLastPosition,
+  CategoryType,
+  TodoItemType,
+} from '@/shared/types';
 import Button from '@/components/Button';
 import CreateTaskModal from '@/components/CreateTaskModal';
 import { getInitialValues } from '@/utils/utils';
@@ -12,25 +16,28 @@ const Todo = () => {
   const [todoList, setTodoList] = useState<TodoItemType[]>([]);
   const [showCreateTodoModal, setShowCreateTodoModal] = useState(false);
   const [latestTaskId, setLatestTaskId] = useState(0);
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<CategoryType['name'][]>([]);
   const [categoryLastPositions, setCategoryLastPositions] =
     useState<CategoryLastPosition>({});
 
-  const createTask = (task: Omit<TodoItemType, 'id' | 'createdAt'>) => {
-    const updatedTodoList = [
-      ...todoList,
-      { ...task, id: latestTaskId + 1, createdAt: new Date() },
-    ];
-    setTodoList(updatedTodoList);
-    localStorage.setItem(TODOS_KEY, JSON.stringify(updatedTodoList));
-  };
+  const createTask = useCallback(
+    (task: Omit<TodoItemType, 'id' | 'createdAt'>) => {
+      const updatedTodoList = [
+        ...todoList,
+        { ...task, id: latestTaskId + 1, createdAt: new Date() },
+      ];
+      setTodoList(updatedTodoList);
+      localStorage.setItem(TODOS_KEY, JSON.stringify(updatedTodoList));
+    },
+    [todoList, latestTaskId]
+  );
 
   useEffect(() => {
     const { todoList, latestId, categories, categoryLastPositions } =
       getInitialValues();
 
     setLatestTaskId(latestId);
-    setCategories(categories as string[]);
+    setCategories(categories as CategoryType['name'][]);
     setTodoList(todoList);
     setCategoryLastPositions(categoryLastPositions);
 

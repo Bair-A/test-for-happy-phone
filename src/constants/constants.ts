@@ -2,7 +2,7 @@ import { TodoItemType } from '@/shared/types';
 
 export const TODOS_KEY = 'TODOS';
 
-export const DEFAULT_CATEGORY = 'Без категории';
+export const DEFAULT_CATEGORY = { name: 'Без категории', id: 1 };
 
 const baseDate = new Date();
 

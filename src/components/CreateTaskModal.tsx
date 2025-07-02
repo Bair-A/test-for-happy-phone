@@ -2,14 +2,18 @@
 
 import Overlay from '@/components/Overlay';
 import { useState } from 'react';
-import { CategoryLastPosition, TodoItemType } from '@/shared/types';
+import {
+  CategoryLastPosition,
+  CategoryType,
+  TodoItemType,
+} from '@/shared/types';
 import { DEFAULT_CATEGORY } from '@/constants/constants';
 
 type CreateTaskModalProps = {
   closeModal: () => void;
   onCreate: (task: Omit<TodoItemType, 'id' | 'createdAt'>) => void;
   categoryLastPositions: CategoryLastPosition;
-  categories: string[];
+  categories: CategoryType['name'][];
 };
 
 const CreateTaskModal = ({
@@ -19,15 +23,15 @@ const CreateTaskModal = ({
   categories,
 }: CreateTaskModalProps) => {
   const [taskText, setTaskText] = useState('');
-  const [category, setCategory] = useState(DEFAULT_CATEGORY);
+  const [category, setCategory] = useState(DEFAULT_CATEGORY.name);
 
   const createTask = () => {
     onCreate({
       text: taskText,
-      category: [category, categoryLastPositions[category] || 1],
+      category: [category, categoryLastPositions[category] + 1 || 1],
     });
     setTaskText('');
-    setCategory(DEFAULT_CATEGORY);
+    setCategory(DEFAULT_CATEGORY.name);
     closeModal();
   };
 
@@ -66,16 +70,7 @@ const CreateTaskModal = ({
           </button>
         </div>
 
-        <form
-          className="p-4 md:p-5"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target as HTMLFormElement);
-            const taskText = formData.get('task-text') as string;
-            const category = formData.get('task-category') as string;
-            console.log(taskText, category, 'задачи');
-          }}
-        >
+        <form className="p-4 md:p-5">
           <div className="mb-4 grid grid-cols-2 gap-4">
             <div className="col-span-2">
               <label
@@ -108,7 +103,9 @@ const CreateTaskModal = ({
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value={DEFAULT_CATEGORY}>{DEFAULT_CATEGORY}</option>
+                <option value={DEFAULT_CATEGORY.name}>
+                  {DEFAULT_CATEGORY.name}
+                </option>
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat}
