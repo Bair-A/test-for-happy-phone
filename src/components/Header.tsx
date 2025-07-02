@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import NavLink from '@/components/NavLink';
+import { NAVIGATION_LINKS } from '@/constants/constants';
 
 const Header = () => {
   return (
@@ -43,16 +45,9 @@ const Header = () => {
       <div className="hidden w-full sm:block sm:w-auto" id="navbar-default">
         <nav>
           <ul className="flex gap-6">
-            <li>
-              <Link href="/" className="hover:underline">
-                Главная
-              </Link>
-            </li>
-            <li>
-              <Link href="/" className="hover:underline">
-                Категории
-              </Link>
-            </li>
+            {NAVIGATION_LINKS.map((link) => (
+              <NavLink text={link.text} href={link.href} />
+            ))}
           </ul>
         </nav>
       </div>

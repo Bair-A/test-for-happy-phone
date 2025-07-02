@@ -6,6 +6,11 @@ export const DEFAULT_CATEGORY = 'Без категории';
 
 const baseDate = new Date();
 
+export const NAVIGATION_LINKS = [
+  { text: 'Главная', href: '/' },
+  { text: 'Категории', href: '/categories' },
+];
+
 export const mockTodoItems: TodoItemType[] = [
   {
     id: 1,
